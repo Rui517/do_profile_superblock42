@@ -39,7 +39,7 @@ function txt=call_block42(bk,pt,flag)
 
     //** set nevprt and flag for called block
     txt=[txt;
-    "QueryPerformanceCounter(&start_"+funs(bk)+"_"+string(bk)+");"
+     "start_"+funs(bk)+"_"+string(bk)+"=clock();"
      //funs(kf)+"_nb++;"
     "block_"+rdnom+"["+string(bk-1)+"].nevprt = "+string(pt)+";"
     "local_flag = "+string(flag)+";"]
@@ -65,8 +65,8 @@ function txt=call_block42(bk,pt,flag)
         get_blank(rdnom+"_actuator")+" &nrd_"+string(nuk_1)+", &nrd_"+string(nuk_2)+", &nrd_"+string(uk_t)+",bbb);"]
         txt = [txt;
         "if(local_flag < 0) return(5 - local_flag);"
-        "QueryPerformanceCounter(&end_"+funs(bk)+"_"+string(bk)+");"
-    "total_"+funs(bk)+"_"+string(bk)+"=(end_"+funs(bk)+"_"+string(bk)+".QuadPart-start_"+funs(bk)+"_"+string(bk)+".QuadPart)*1000.0/frequency.QuadPart;"]
+        "end_"+funs(bk)+"_"+string(bk)+"=clock();"
+    "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk);"]
         return
     elseif or(bk==capt(:,1)) then
         ind=find(bk==capt(:,1))
@@ -82,8 +82,8 @@ function txt=call_block42(bk,pt,flag)
         get_blank(rdnom+"_sensor")+" &nrd_"+string(nyk_1)+", &nrd_"+string(nyk_2)+", &nrd_"+string(yk_t)+",aaa);"]
         txt = [txt;
         "if(local_flag < 0) return(5 - local_flag);"
-        "QueryPerformanceCounter(&end_"+funs(bk)+"_"+string(bk)+");"
-    "total_"+funs(bk)+"_"+string(bk)+"=(end_"+funs(bk)+"_"+string(bk)+".QuadPart-start_"+funs(bk)+"_"+string(bk)+".QuadPart)*1000.0/frequency.QuadPart;"]
+       "end_"+funs(bk)+"_"+string(bk)+"=clock();"
+    "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk);"]
         return
     end
 
@@ -271,8 +271,8 @@ function txt=call_block42(bk,pt,flag)
     end
 
     txt =[txt;"if(local_flag < 0) return(5 - local_flag);"
-    "QueryPerformanceCounter(&end_"+funs(bk)+"_"+string(bk)+");"
-    "total_"+funs(bk)+"_"+string(bk)+"=(end_"+funs(bk)+"_"+string(bk)+".QuadPart-start_"+funs(bk)+"_"+string(bk)+".QuadPart)*1000.0/frequency.QuadPart;"
-    ]
+    "end_"+funs(bk)+"_"+string(bk)+"=clock();"
+     "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk);"]
+    
 
 endfunction
