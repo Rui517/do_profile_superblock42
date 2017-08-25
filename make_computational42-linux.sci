@@ -71,7 +71,7 @@ function make_computational42(filename)
     "#include <limits.h>"
     "#include <ctype.h>"
     "#include <stddef.h>"
-    "#include <Windows.h>"
+    "#include <time.h>"
     "#include ""machine.h"" "
     "#include ""scicos.h"" "
     "#include ""scicos_malloc.h"" "
@@ -235,24 +235,22 @@ function make_computational42(filename)
    
     
     ""
-    "LARGE_INTEGER start_"+rdnom+",end_"+rdnom+";"
+    "clock_t start_"+rdnom+",end_"+rdnom+";"
     "double total_"+rdnom+";"
-    "LARGE_INTEGER start_flag456,end_flag456;"
+    "clock_t start_flag456,end_flag456;"
     "double total_flag456;"
-    "LARGE_INTEGER start_flag1,end_flag1;"
+    "clock_t start_flag1,end_flag1;"
     "double total_flag1;"
-    "LARGE_INTEGER start_flag4,end_flag4;"
+    "clock_t start_flag4,end_flag4;"
     "double total_flag4;"
-    "LARGE_INTEGER start_flag5,end_flag5;"
+    "clock_t start_flag5,end_flag5;"
     "double total_flag5;"
     "double total_s;"
-    "LARGE_INTEGER frequency;"
     ], fd);
     
     for kf=1:nblk
         mputl([
-        //"int "+funs(kf)+"_nb=0;"
-        "LARGE_INTEGER start_"+funs(kf)+"_"+string(kf)+",end_"+funs(kf)+"_"+string(kf)+";"
+        "clock_t start_"+funs(kf)+"_"+string(kf)+",end_"+funs(kf)+"_"+string(kf)+";"
         "double total_"+funs(kf)+"_"+string(kf)+";"], fd);
     end
     
@@ -273,8 +271,7 @@ function make_computational42(filename)
     "  block_"+rdnom+"=(scicos_block*) *block->work;"
     ""
     "  /* Copy inputs in the block outtb */"
-    "QueryPerformanceFrequency(&frequency);"
-    "QueryPerformanceCounter(&start_"+rdnom+");"], fd);
+    "start_"+rdnom+"=clock();"], fd);
 
 
     for i=1:size(capt,1)
@@ -292,7 +289,7 @@ function make_computational42(filename)
 
     mputl([""
     "  if (flag != 4 && flag != 6 && flag != 5){"
-    "QueryPerformanceCounter(&start_flag456);"
+    "start_flag456=clock();"
     "    reentryflag=(int*) ((scicos_block *)(*block->work)+"+string(nblk)+");"
     "    if (*reentryflag==0){"
     "      *reentryflag=1;"], fd);
@@ -979,20 +976,9 @@ function make_computational42(filename)
             string(2*ni)+"*sizeof("+mat2c_typ(actt(i,5))+"));"], fd);
         end
     end
-mputl(["QueryPerformanceCounter(&end_"+rdnom+");"
-"total_"+rdnom+"=(end_"+rdnom+".QuadPart-start_"+rdnom+".QuadPart)*1000.0/frequency.QuadPart;"
+mputl(["start_"+rdnom+"=clock();"
+"total_"+rdnom+"=end_"+rdnom+"-start_"+rdnom+";"
 "cJSON_AddNumberToObject(json,"""+rdnom+":"",total_"+rdnom+");"],fd);
-    //**
-   // mputl(["cJSON_AddNumberToObject(json,"""+rdnom+":"",total_"+rdnom+");"
-    //"cJSON_AddNumberToObject(json,""flag456:"",total_flag456);"
-     //"cJSON_AddNumberToObject(json,""flag1:"",total_flag1);"
-     //"cJSON_AddNumberToObject(json,""flag4:"",total_flag4);"
-     //"cJSON_AddNumberToObject(json,""flag5:"",total_flag5);"],fd);
-   // for kf=1:nblk
-   // mputl(["cJSON_AddNumberToObject(json,"""+funs(kf)+"_"+string(kf)+":"",total_"+funs(kf)+"_"+string(kf)+");"
-    //"cJSON_AddNumberToObject(json,"""+funs(kf)+"_nb:"","+funs(kf)+"_nb);"
-   // ], fd);
-    //end
 for i=1:size(scs_m.objs)
       if typeof(scs_m.objs(i))=="Block" then
             if scs_m.objs(i).gui=="SUPER_f" then
