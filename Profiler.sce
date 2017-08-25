@@ -20,7 +20,7 @@ function result = Profiler(xcosFile)
         error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected." + "\n"), "importXcosDiagram", 1));
         return;
     end
-    json_eg = mgetl("C:\Users\32914\Desktop\test\7\create.json");
+    json_eg = mgetl("C:\Users\32914\Desktop\test\7\create.json");//you could use your own path
     //return scs_m in Scilab environment
     result = %t;
     scs_m= resume(json_eg);
