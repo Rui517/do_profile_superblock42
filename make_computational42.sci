@@ -251,7 +251,6 @@ function make_computational42(filename)
     
     for kf=1:nblk
         mputl([
-        //"int "+funs(kf)+"_nb=0;"
         "LARGE_INTEGER start_"+funs(kf)+"_"+string(kf)+",end_"+funs(kf)+"_"+string(kf)+";"
         "double total_"+funs(kf)+"_"+string(kf)+";"], fd);
     end
@@ -982,17 +981,6 @@ function make_computational42(filename)
 mputl(["QueryPerformanceCounter(&end_"+rdnom+");"
 "total_"+rdnom+"=(end_"+rdnom+".QuadPart-start_"+rdnom+".QuadPart)*1000.0/frequency.QuadPart;"
 "cJSON_AddNumberToObject(json,"""+rdnom+":"",total_"+rdnom+");"],fd);
-    //**
-   // mputl(["cJSON_AddNumberToObject(json,"""+rdnom+":"",total_"+rdnom+");"
-    //"cJSON_AddNumberToObject(json,""flag456:"",total_flag456);"
-     //"cJSON_AddNumberToObject(json,""flag1:"",total_flag1);"
-     //"cJSON_AddNumberToObject(json,""flag4:"",total_flag4);"
-     //"cJSON_AddNumberToObject(json,""flag5:"",total_flag5);"],fd);
-   // for kf=1:nblk
-   // mputl(["cJSON_AddNumberToObject(json,"""+funs(kf)+"_"+string(kf)+":"",total_"+funs(kf)+"_"+string(kf)+");"
-    //"cJSON_AddNumberToObject(json,"""+funs(kf)+"_nb:"","+funs(kf)+"_nb);"
-   // ], fd);
-    //end
 for i=1:size(scs_m.objs)
       if typeof(scs_m.objs(i))=="Block" then
             if scs_m.objs(i).gui=="SUPER_f" then
