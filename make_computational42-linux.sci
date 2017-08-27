@@ -33,8 +33,6 @@ function make_computational42(filename)
     
     scs_m=XX.model.rpar
     
-    labels=cpr.sim.labels;
-    
     noord=size(cpr.sim.oord,1);
     nzord=size(cpr.sim.zord,1);
     niord=size(cpr.sim.iord,1);
@@ -370,8 +368,8 @@ function make_computational42(filename)
     end
 
     mputl(["    }"
-    "QueryPerformanceCounter(&end_flag456);"
-    "total_flag456=(end_flag456.QuadPart-start_flag456.QuadPart)*1000.0/frequency.QuadPart;"
+   "end_flag456=clock();"
+    "total_flag456=end_flag456-start_flag456;"
     "  }"
     ""
     ], fd);
@@ -497,16 +495,19 @@ function make_computational42(filename)
         if txt3<>[] then
             if flag==1 & txt22==[] then
                 mputl(["  if (flag == "+string(flag)+") { "
-                "QueryPerformanceCounter(&start_flag1);"+...
+                "start_flag1=clock();"+...
                 get_comment("flag",list(flag))
                 txt3
-                "QueryPerformanceCounter(&end_flag1);"
-"total_flag1=(end_flag1.QuadPart-start_flag1.QuadPart)*1000.0/frequency.QuadPart;"
+                 "end_flag1=clock();"
+"total_flag1=end_flag1-start_flag1;"
                 "  }"], fd);
             else
-                mputl(["  else if (flag == "+string(flag)+") { "+...
+                mputl(["  else if (flag == "+string(flag)+") { "
+                 "start_flag1=clock();"+...
                 get_comment("flag",list(flag))
                 txt3
+                "end_flag1=clock();"
+"total_flag1=end_flag1-start_flag1;"
                 "  }"], fd);
             end
         end
@@ -516,7 +517,8 @@ function make_computational42(filename)
     ng=zcptr($)-1;
     if (ng ~= 0) then
         flag = 9;
-        mputl(["  else if (flag == "+string(flag)+") { "+...
+        mputl(["  else if (flag == "+string(flag)+") {
+         "start_flag9=clock();""+...
         get_comment("flag",list(flag))], fd);
 
         txt=[]
@@ -534,15 +536,16 @@ function make_computational42(filename)
         write_code_zdoit()
         ], fd);
 
-        mputl(["QueryPerformanceCounter(&end_flag1);"
-    "total_flag1=(end_flag1.QuadPart-start_flag1.QuadPart)*1000.0/frequency.QuadPart;"
+        mputl([
+        "end_flag9=clock();"
+"total_flag9=end_flag9-start_flag9;"
         "  }"], fd);
     end
 
     //** flag 4
     mputl([
     "  else if (flag == 4) { "+get_comment("flag",list(4))
-    "QueryPerformanceCounter(&start_flag4);"
+    "start_flag4=clock();"
     "    if ((*block->work=scicos_malloc(sizeof(scicos_block)*"+...
     string(nblk)+"+sizeof(int)))== NULL) return 0;";
     "    reentryflag=(int*) ((scicos_block *)(*block->work)+"+string(nblk)+");"
@@ -821,14 +824,14 @@ function make_computational42(filename)
     // //     end
     //   end
 
-    mputl(["QueryPerformanceCounter(&end_flag4);"
-    "total_flag4=(end_flag4.QuadPart-start_flag4.QuadPart)*1000.0/frequency.QuadPart;"
+    mputl(["end_flag4=clock();"
+"total_flag4=end_flag4-start_flag4;"
     "  }"], fd);
 
     //** flag 5
     mputl([
     "  else if (flag == 5) { "+get_comment("flag",list(5))
-    "QueryPerformanceCounter(&start_flag5);"
+    "start_flag5=clock();"
     "    block_"+rdnom+"=*block->work;"], fd);
 
     for kf=1:nblk
@@ -959,8 +962,8 @@ function make_computational42(filename)
     "      }"
     "    }"
     "    scicos_free(block_"+rdnom+");"
-   "QueryPerformanceCounter(&end_flag5);"
-   "total_flag5=(end_flag5.QuadPart-start_flag5.QuadPart)*1000.0/frequency.QuadPart;"
+   "end_flag5=clock();"
+"total_flag5=end_flag5-start_flag5;"
      "  }"
     ""], fd);
 
@@ -976,7 +979,7 @@ function make_computational42(filename)
             string(2*ni)+"*sizeof("+mat2c_typ(actt(i,5))+"));"], fd);
         end
     end
-mputl(["start_"+rdnom+"=clock();"
+mputl(["end_"+rdnom+"=clock();"
 "total_"+rdnom+"=end_"+rdnom+"-start_"+rdnom+";"
 "cJSON_AddNumberToObject(json,"""+rdnom+":"",total_"+rdnom+");"],fd);
 for i=1:size(scs_m.objs)
