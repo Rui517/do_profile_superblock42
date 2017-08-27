@@ -143,7 +143,6 @@ function make_computational42(filename)
 "#define cJSON_SetNumberValue(object,val) ((object) ? (object)->valueint = (object)->valuedouble = (val) : (val))"
 "#define cJSON_ArrayForEach(pos, head) for(pos = (head)->child; pos != NULL; pos = pos->next)"
 "static cJSON *cJSON_CreateObject(void);"
-
 "static cJSON *cJSON_New_Item(void);"
 "static void   cJSON_AddItemToObject(cJSON *object, const char *string, cJSON *item);"
 "static cJSON *cJSON_CreateNumber(double num);"
@@ -157,9 +156,7 @@ function make_computational42(filename)
 "static const char *global_ep =NULL;"
 "static cJSON *cJSON_CreateArray(void);"
     ], fd);
-
     mputl([Protos ; ""], fd);
-
     mputl(["/* Table of constant values */"
     "static int nrd_"+string(0:maxtotal)'+" = "+string(0:maxtotal)'+";"], fd);
 
@@ -243,6 +240,8 @@ function make_computational42(filename)
     "double total_flag4;"
     "clock_t start_flag5,end_flag5;"
     "double total_flag5;"
+    "clock_t start_flag9,end_flag9;"
+    "double total_flag9;"
     "double total_s;"
     ], fd);
     
@@ -517,8 +516,8 @@ function make_computational42(filename)
     ng=zcptr($)-1;
     if (ng ~= 0) then
         flag = 9;
-        mputl(["  else if (flag == "+string(flag)+") {
-         "start_flag9=clock();""+...
+        mputl(["  else if (flag == "+string(flag)+") {"
+         "start_flag9=clock();"+...
         get_comment("flag",list(flag))], fd);
 
         txt=[]
@@ -1021,8 +1020,9 @@ end
      "cJSON_AddNumberToObject(json,""flag1:"",total_flag1);"
      "cJSON_AddNumberToObject(json,""flag4:"",total_flag4);"
      "cJSON_AddNumberToObject(json,""flag5:"",total_flag5);"
+     "cJSON_AddNumberToObject(json,""flag9:"",total_flag9);"
     "{"
-    "fp = fopen(""C:\\Users\\32914\\Desktop\\test\\9\\create.json"",""w"");"
+    "fp = fopen(""C:\\Users\\32914\\Desktop\\test\\7\\create.json"",""w"");"
     "fwrite(cJSON_Print(json),strlen(cJSON_Print(json)),1,fp);"
     "fclose(fp);"
     "}"
