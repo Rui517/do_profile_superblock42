@@ -66,7 +66,7 @@ function txt=call_block42(bk,pt,flag)
         txt = [txt;
         "if(local_flag < 0) return(5 - local_flag);"
         "end_"+funs(bk)+"_"+string(bk)+"=clock();"
-    "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk);"]
+    "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk)+";"]
         return
     elseif or(bk==capt(:,1)) then
         ind=find(bk==capt(:,1))
@@ -83,7 +83,7 @@ function txt=call_block42(bk,pt,flag)
         txt = [txt;
         "if(local_flag < 0) return(5 - local_flag);"
        "end_"+funs(bk)+"_"+string(bk)+"=clock();"
-    "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk);"]
+    "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk)+";"]
         return
     end
 
@@ -272,7 +272,6 @@ function txt=call_block42(bk,pt,flag)
 
     txt =[txt;"if(local_flag < 0) return(5 - local_flag);"
     "end_"+funs(bk)+"_"+string(bk)+"=clock();"
-     "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk);"]
+     "total_"+funs(bk)+"_"+string(bk)+"=end_"+funs(bk)+"_"+string(bk)+"-start_"+funs(bk)+"_"+string(bk)+";"]
     
-
 endfunction
