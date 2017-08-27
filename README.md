@@ -1,5 +1,7 @@
 # do_profile_superblock42
 
+This project is for Scilab in Google Summer of Code.
+
 1>I did some changes in "do_compiler_superblock42.sci"file.
 
 2>Firstly, I changes "call_block42"function to add start,end and total time to execute time of every block in superblock.
