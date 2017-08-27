@@ -12,5 +12,4 @@
 
 5>Eventually, I make a "Profiler.sci" file to present json result in workspace. If the user enter the path of model, it will present json     result of this model in workspace
 
-6>In addition, I use "windows.h" which can only is used in windows system. So i separate linux edition and windows edition. And i use   
-  "time.h" in linux edition. But "time.h" is not very accurate.
+6>In addition, I use "windows.h" which can only is used in windows system. So i separate linux edition and windows edition. And i use    "time.h" in linux edition. But "time.h" is not very accurate.
