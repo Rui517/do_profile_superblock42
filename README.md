@@ -17,3 +17,5 @@ This project is for Scilab in Google Summer of Code.
 7> 1.json is result of complex model. But it doesn't have sum of time of every inside superblock. So i update my codes and result is "create.json".
 
 8> After GSoC, i will try to present json result in html way which is easier for user to see results.
+
+9> My wiki in Scilab is https://wiki.scilab.org/GSoC_2017_Rui_Shi
