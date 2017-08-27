@@ -1021,7 +1021,7 @@ end
      "cJSON_AddNumberToObject(json,""flag4:"",total_flag4);"
      "cJSON_AddNumberToObject(json,""flag5:"",total_flag5);"
     "{"
-    "fp = fopen(""C:\\Users\\32914\\Desktop\\test\\9\\create.json"",""w"");"
+    "fp = fopen(""C:\\Users\\32914\\Desktop\\test\\9\\create.json"",""w"");"// This is my own path
     "fwrite(cJSON_Print(json),strlen(cJSON_Print(json)),1,fp);"
     "fclose(fp);"
     "}"
